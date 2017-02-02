@@ -3,7 +3,7 @@
 
 extern "C"
 jstring
-Java_com_winterschool_mobilewinterschool_MainActivity_stringFromJNI(
+Java_com_winterschool_mobilewinterschool_LoginActivity_stringFromJNI(
         JNIEnv* env,
         jobject /* this */) {
     std::string hello = "Hello from C++";
