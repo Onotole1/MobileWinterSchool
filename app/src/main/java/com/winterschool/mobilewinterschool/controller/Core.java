@@ -29,9 +29,4 @@ public class Core {
 		Thread takePhotoThread = new Thread(mTakePhotoThread);
 		takePhotoThread.start();
 	}
-
-	public void writeToQueue() {
-		Thread writeToQueueThread = new Thread(mWriteService);
-		writeToQueueThread.start();
-	}
 }
