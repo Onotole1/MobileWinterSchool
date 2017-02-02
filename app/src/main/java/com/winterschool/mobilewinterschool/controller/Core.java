@@ -7,4 +7,20 @@ package com.winterschool.mobilewinterschool.controller;
  * @author anatoliy
  */
 public class Core {
+	private static Core sCore;
+	private QueueService mQueueService;
+	private ReadService mReadService;
+	private WriteService mWriteService;
+
+	private Core() {
+	}
+
+	public Core getInstance() {
+		if (sCore == null) {
+			sCore = new Core();
+		}
+		return sCore;
+	}
+
+
 }
