@@ -6,5 +6,9 @@ package com.winterschool.mobilewinterschool.controller;
  *
  * @author anatoliy
  */
-public class TakePhotoService {
+public class TakePhotoThread implements Runnable {
+	@Override
+	public void run() {
+
+	}
 }
