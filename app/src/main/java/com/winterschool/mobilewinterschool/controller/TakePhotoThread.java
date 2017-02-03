@@ -7,8 +7,8 @@ package com.winterschool.mobilewinterschool.controller;
  * @author anatoliy
  */
 public class TakePhotoThread implements Runnable {
+
 	@Override
 	public void run() {
-
 	}
 }

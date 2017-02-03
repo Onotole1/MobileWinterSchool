@@ -12,5 +12,13 @@ public class TrainingData {
 	private Integer mPulse;
 	private ResourceBundle mPhoto;
 	private String mToken;
-	private boolean mIsBluetoothConnected;
+	private int mSessionId;
+	private boolean mIsPolarConnected;
+
+	public TrainingData(String token) {
+		mToken = token;
+		mPulse = 0;
+		mSessionId = 0;
+		mIsPolarConnected = false;
+	}
 }
