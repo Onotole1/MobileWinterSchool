@@ -1,6 +1,10 @@
 package com.winterschool.mobilewinterschool;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -8,13 +12,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.winterschool.mobilewinterschool.controller.LoginTask;
+import com.winterschool.mobilewinterschool.view.SettingsActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  {
     private Button mLoginButton;
     private ImageButton mLoginDeleteButtton;
     private ImageButton mPasswordDeleteButton;
     private EditText mLoginEditText;
     private EditText mPasswordEditText;
+    private Context context = this;
+    private String token;
 
     private LoginTask mLoginTask;
 
@@ -54,7 +61,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mLoginTask = new LoginTask(mLoginEditText.getText().toString()
-                        , mPasswordEditText.getText().toString());
+                        , mPasswordEditText.getText().toString(), loginCallback);
+                Thread thread = new Thread(mLoginTask);
+                thread.start();
             }
         };
         View.OnClickListener onClickListenerLoginDelete = new View.OnClickListener() {
@@ -73,4 +82,24 @@ public class LoginActivity extends AppCompatActivity {
         mLoginDeleteButtton.setOnClickListener(onClickListenerLoginDelete);
         mPasswordDeleteButton.setOnClickListener(onClickListenerPasswordDelete);
     }
+
+    Handler.Callback loginCallback = new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            try {
+                token = (String) message.obj;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(context, SettingsActivity.class);
+                        intent.putExtra("token", token);
+                        context.startActivity(intent);
+                    }
+                });
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    };
 }
