@@ -9,7 +9,6 @@ import com.winterschool.mobilewinterschool.model.TrainingData;
  * @author anatoliy
  */
 public class Core {
-	private WriteService mWriteService;
 	private TakePhotoThread mTakePhotoThread;
 	private TrainingData mTrainingData;
 
@@ -18,7 +17,10 @@ public class Core {
 	}
 
 	public void takePhoto() {
-		Thread takePhotoThread = new Thread(mTakePhotoThread);
-		takePhotoThread.start();
+		new Thread(mTakePhotoThread).start();
+	}
+
+	public void startTraining() {
+		new WriteService(mTrainingData);
 	}
 }

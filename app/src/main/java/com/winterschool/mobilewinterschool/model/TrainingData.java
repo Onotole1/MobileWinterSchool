@@ -21,4 +21,44 @@ public class TrainingData {
 		mSessionId = 0;
 		mIsPolarConnected = false;
 	}
+
+	public Integer getPulse() {
+		return mPulse;
+	}
+
+	public void setPulse(Integer pulse) {
+		mPulse = pulse;
+	}
+
+	public ResourceBundle getPhoto() {
+		return mPhoto;
+	}
+
+	public void setPhoto(ResourceBundle photo) {
+		mPhoto = photo;
+	}
+
+	public String getToken() {
+		return mToken;
+	}
+
+	public void setToken(String token) {
+		mToken = token;
+	}
+
+	public int getSessionId() {
+		return mSessionId;
+	}
+
+	public void setSessionId(int sessionId) {
+		mSessionId = sessionId;
+	}
+
+	public boolean isPolarConnected() {
+		return mIsPolarConnected;
+	}
+
+	public void setPolarConnected(boolean polarConnected) {
+		mIsPolarConnected = polarConnected;
+	}
 }

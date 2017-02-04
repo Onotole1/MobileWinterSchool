@@ -1,6 +1,7 @@
 package com.winterschool.mobilewinterschool.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
 
@@ -22,18 +23,22 @@ public class WriteService {
 	public WriteService(TrainingData trainingData) {
 		mTrainingData = trainingData;
 		mHandler = new Handler();
-		mHandler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
-				format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-				try {
-					//Тут вызывается сервер. Возможно, пустое поле int mTrainingData.mPulse
-				} catch (NullPointerException e) {
-					e.printStackTrace();
-				}
-				//Do something after 1000ms
-			}
-		}, mDelay);
+		mHandler.postDelayed(sendToServerTask, mDelay);
 	}
+
+	private Runnable sendToServerTask = new Runnable() {
+		@Override
+		public void run() {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
+			format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+			try {
+				System.out.println(format.format(new Date()));
+				//Тут вызывается сервер. Возможно, пустое поле int mTrainingData.mPulse
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
+			mHandler.postDelayed(sendToServerTask, mDelay);
+			//Do something after 1000ms
+		}
+	};
 }

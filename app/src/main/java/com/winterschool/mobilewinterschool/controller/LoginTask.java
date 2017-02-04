@@ -26,6 +26,7 @@ public class LoginTask implements Runnable {
 		//Server.login(mLogin, mPassword, loginCallback);
 		Message message = new Message();
 		message.obj = "toooken";
+		message.arg1 = 1;
 		mCallback.handleMessage(message);
 	}
 }

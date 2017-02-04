@@ -23,6 +23,14 @@ public class TrainingActivity extends AppCompatActivity {
 			e.printStackTrace();
 		}
 		mCore = new Core(mTrainingData);
+		//mCore.takePhoto();
+		mCore.startTraining();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		//super.onActivityResult(requestCode, resultCode, data);
+		mCore.startTraining();
 	}
 
 	private String getToken() {

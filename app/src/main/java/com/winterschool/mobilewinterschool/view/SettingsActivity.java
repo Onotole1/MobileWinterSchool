@@ -1,5 +1,6 @@
 package com.winterschool.mobilewinterschool.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,5 +16,9 @@ public class SettingsActivity extends AppCompatActivity {
 
 		Bundle extras = getIntent().getExtras();
 		Log.d("token", extras.getString("token"));
+
+		Intent intent = new Intent(this, TrainingActivity.class);
+		intent.putExtra("token", extras.getString("token"));
+		startActivity(intent);
 	}
 }
