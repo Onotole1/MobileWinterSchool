@@ -39,6 +39,36 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
   pool = console
   restat = 1
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target crypt
+
+build CMakeFiles/crypt.dir/src/main/cpp/crypt.cpp.o: CXX_COMPILER__crypt ../../../../src/main/cpp/crypt.cpp
+  DEFINES = -Dcrypt_EXPORTS
+  DEP_FILE = CMakeFiles/crypt.dir/src/main/cpp/crypt.cpp.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC
+  INCLUDES = -isystem /home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/include -isystem /home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward
+  IN_ABS = /home/anatoliy/MobileWinterSchool/app/src/main/cpp/crypt.cpp
+  OBJECT_DIR = CMakeFiles/crypt.dir
+  OBJECT_FILE_DIR = CMakeFiles/crypt.dir/src/main/cpp
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target crypt
+
+
+#############################################
+# Link the shared library ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so
+
+build ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so: CXX_SHARED_LIBRARY_LINKER__crypt CMakeFiles/crypt.dir/src/main/cpp/crypt.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info
+  LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
+  LINK_LIBRARIES = -lm "/home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_static.a"
+  OBJECT_DIR = CMakeFiles/crypt.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  SONAME = libcrypt.so
+  SONAME_FLAG = -Wl,-soname,
+  TARGET_FILE = ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so
+  TARGET_PDB = crypt.so.dbg
 
 #############################################
 # Utility command for edit_cache
@@ -51,7 +81,12 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # =============================================================================
 # Object build statements for SHARED_LIBRARY target native-lib
 
-build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__native-lib ../../../../src/main/cpp/native-lib.cpp
+
+#############################################
+# Order-only phony target for native-lib
+
+build cmake_order_depends_target_native-lib: phony || ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so
+build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__native-lib ../../../../src/main/cpp/native-lib.cpp || cmake_order_depends_target_native-lib
   DEFINES = -Dnative_lib_EXPORTS
   DEP_FILE = CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o.d
   FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC
@@ -67,10 +102,10 @@ build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__nat
 #############################################
 # Link the shared library ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
 
-build ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | /home/anatoliy/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so
+build ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so /home/anatoliy/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so || ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info
   LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
-  LINK_LIBRARIES = /home/anatoliy/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so -lm "/home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_static.a"
+  LINK_LIBRARIES = ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so /home/anatoliy/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so -lm "/home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_static.a"
   OBJECT_DIR = CMakeFiles/native-lib.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -81,6 +116,8 @@ build ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so: C
 # =============================================================================
 # Target aliases.
 
+build crypt: phony ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so
+build libcrypt.so: phony ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so
 build libnative-lib.so: phony ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
 build native-lib: phony ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
 # =============================================================================
@@ -94,7 +131,7 @@ build native-lib: phony ../../../../build/intermediates/cmake/debug/obj/mips64/l
 #############################################
 # The main all target.
 
-build all: phony ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
+build all: phony ../../../../build/intermediates/cmake/debug/obj/mips64/libcrypt.so ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
 
 #############################################
 # Make the all target the default.

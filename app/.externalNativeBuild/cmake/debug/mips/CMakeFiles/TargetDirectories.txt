@@ -1,3 +1,4 @@
 /home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/rebuild_cache.dir
+/home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/crypt.dir
 /home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/edit_cache.dir
 /home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/native-lib.dir
