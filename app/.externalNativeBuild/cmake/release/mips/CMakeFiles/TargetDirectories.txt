@@ -1,4 +1,4 @@
-/home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/rebuild_cache.dir
-/home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/crypt.dir
-/home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/edit_cache.dir
-/home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/native-lib.dir
+/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/rebuild_cache.dir
+/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/crypt.dir
+/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/edit_cache.dir
+/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/mips/CMakeFiles/native-lib.dir
