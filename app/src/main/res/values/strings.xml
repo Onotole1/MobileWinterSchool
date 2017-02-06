@@ -1,3 +1,14 @@
 <resources>
-	<string name="app_name">MobileWinterSchool</string>
+    <string name="app_name">
+		MobileWinterSchool
+	</string>
+	<string name="settings_notification">
+		Выберите устройство для начала тренировки.
+	</string>
+	<string name="settings_start_training">
+		Устройство выбрано, в можете начать тренировку.
+	</string>
+	<string name="connection_error">
+		Потеряна связь с устройством.
+	</string>
 </resources>
