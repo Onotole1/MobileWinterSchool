@@ -55,4 +55,11 @@
 
     </LinearLayout>
 
+	<Button
+		android:text="Training"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/activity_settings_button" />
+
 </RelativeLayout>

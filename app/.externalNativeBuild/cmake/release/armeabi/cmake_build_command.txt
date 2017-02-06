@@ -1,14 +1,14 @@
-Executable : /home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake
+Executable : C:\Android\sdk\cmake\3.6.3155560\bin\cmake.exe
 arguments : 
--H/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app
--B/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/armeabi
+-HC:\CompTechNsk\MobileWinterSchool\app
+-BC:\CompTechNsk\MobileWinterSchool\app\.externalNativeBuild\cmake\release\armeabi
 -GAndroid Gradle - Ninja
 -DANDROID_ABI=armeabi
--DANDROID_NDK=/home/alek/Android/Sdk/ndk-bundle
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/build/intermediates/cmake/release/obj/armeabi
+-DANDROID_NDK=C:\Android\sdk\ndk-bundle
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\CompTechNsk\MobileWinterSchool\app\build\intermediates\cmake\release\obj\armeabi
 -DCMAKE_BUILD_TYPE=Release
--DCMAKE_MAKE_PROGRAM=/home/alek/Android/Sdk/cmake/3.6.3155560/bin/ninja
--DCMAKE_TOOLCHAIN_FILE=/home/alek/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=C:\Android\sdk\cmake\3.6.3155560\bin\ninja.exe
+-DCMAKE_TOOLCHAIN_FILE=C:\Android\sdk\ndk-bundle\build\cmake\android.toolchain.cmake
 -DANDROID_NATIVE_API_LEVEL=15
 -DCMAKE_CXX_FLAGS=-frtti -fexceptions
 jvmArgs : 

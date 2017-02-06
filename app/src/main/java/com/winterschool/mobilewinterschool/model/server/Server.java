@@ -67,11 +67,11 @@ public class Server {
 
         @Headers("Content-Type: application/json")
         @POST("pulse")
-        Call<Integer> postPulse(@Header("Authorization") String token, @Body PulseRequest pulseRequest);
+        Call<Void> postPulse(@Header("Authorization") String token, @Body PulseRequest pulseRequest);
 
         @Headers("Content-Type: application/json")
         @POST("finished")
-        Call<Integer> postStopSignal(@Header("Authorization") String token, @Body StopSignalRequest stopRequest);
+        Call<Void> postStopSignal(@Header("Authorization") String token, @Body StopSignalRequest stopRequest);
     }
 
     public void authRequest(String userName, String password, Handler handler){
@@ -80,11 +80,13 @@ public class Server {
              Response response = retrofit.create(ServerAPI.class).postLoginPassword("password", userName, password).execute();
              if (response.code() == 409)
                  message.arg1 = ERR_LOGIN;
-             else {
+             else if (response.code() == 200) {
                  message.arg1 = ACK_LOGIN;
                  TokenResponse tokenResponse = (TokenResponse) response.body();
                  message.obj = tokenResponse.getAccessToken();
              }
+             else
+                 message.arg1 = ERR_CONNECTION;
         } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }
@@ -98,7 +100,6 @@ public class Server {
             return;
         }
         PhotoRequest photoRequest = new PhotoRequest(cryptPhoto, timestamp);
-
         try {
             Response response = retrofit.create(ServerAPI.class).postPhoto("Bearer " + token, photoRequest).execute();
             if (response.code() != 200)

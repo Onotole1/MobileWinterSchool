@@ -3,6 +3,8 @@ package com.winterschool.mobilewinterschool.view;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,6 +64,7 @@ public class SettingsActivity extends Activity {
 		extrasIn = getIntent().getExtras();
 		Log.d("token", extrasIn.getString("token"));
 
+		final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		mHandler = new Handler();
 
@@ -80,6 +83,7 @@ public class SettingsActivity extends Activity {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			this.requestPermissions(new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, bluetoothRequestCode);
 		}
+		Log.i("Initialization", "Initialization complete");
 	}
 
 	private void setClickListener(){
@@ -88,6 +92,8 @@ public class SettingsActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
 				intent.putExtra("token", extrasIn.getString("token"));
+				intent.putExtra("device", neededDevice);
+				Log.i("Button", "Pressed training activity button");
 				startActivity(intent);
 			}
 		};
@@ -110,10 +116,12 @@ public class SettingsActivity extends Activity {
 				neededDevice = deviceList.get(position);
 				deviceList.clear();
 				deviceNameList.clear();
+				updateDeviceListView();
 				deviceNameList.add(neededDevice.getName());
 				updateDeviceListView();
 				startTrainingButton.setEnabled(true);
 				textViewInfo.setText(R.string.settings_start_training);
+				Log.i("ItemSelected", "Needed device selected");
 			}
 		};
 		deviceListView.setOnItemClickListener(onItemClickListenerDeviceList);
@@ -133,25 +141,29 @@ public class SettingsActivity extends Activity {
 
 	private void scanDevice(boolean scanning){
 		if (scanning) {
+			Log.i("BluetoothScan", "Start Scanning");
 			mHandler.postDelayed(stopLeScanRunnable, SCAN_PERIOD);
 			bluetoothAdapter.startLeScan(leScanCallback);
-			Log.i("BluetoothScan", "Start Scanning");
 		} else {
-			mHandler.removeCallbacks(stopLeScanRunnable);
-			bluetoothAdapter.stopLeScan(leScanCallback);
 			Log.i("BluetoothScan", "Bluetooth scan stops");
+			bluetoothAdapter.stopLeScan(leScanCallback);
 		}
 	}
 
 	private BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
 		@Override
-		public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-			if(deviceList.equals(device)){
-				deviceList.add(device);
-				deviceNameList.add(device.getName());
-				updateDeviceListView();
-				Log.i("DeviceList", "Device add to deviceList");
-			}
+		public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					if(!deviceList.contains(device)){
+						Log.i("DeviceList", "Device add to deviceList");
+						deviceList.add(device);
+						deviceNameList.add(device.getName());
+						updateDeviceListView();
+					}
+				}
+			});
 		}
 	};
 
@@ -163,15 +175,15 @@ public class SettingsActivity extends Activity {
 	};
 
 	private void updateDeviceListView(){
-		if(!deviceNameList.isEmpty()){
-			adapterList.notifyDataSetInvalidated();
-		}
+		adapterList.notifyDataSetInvalidated();
 	}
 
 	private void restartScan(){
+		mHandler.removeCallbacks(stopLeScanRunnable);
 		scanDevice(false);
 		deviceList.clear();
 		deviceNameList.clear();
+		updateDeviceListView();
 		scanDevice(true);
 	}
 }
