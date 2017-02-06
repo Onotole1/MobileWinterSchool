@@ -1,59 +1,38 @@
 
 {
-	"buildFiles" : 
-	[
-		"/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/CMakeLists.txt"
-	],
+	"buildFiles" : [ "/home/anatoliy/MobileWinterSchool/app/CMakeLists.txt" ],
 	"cleanCommands" : 
 	[
-		"/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a --target clean"
+		"/home/anatoliy/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a --target clean"
 	],
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
 	{
-		"crypt-Release-arm64-v8a" : 
-		{
-			"abi" : "arm64-v8a",
-			"artifactName" : "crypt",
-			"buildCommand" : "/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a --target crypt",
-			"buildType" : "release",
-			"files" : 
-			[
-				
-				{
-					"flags" : "  -target aarch64-none-linux-android -gcc-toolchain /home/alek/Android/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 --sysroot=/home/alek/Android/Sdk/ndk-bundle/platforms/android-21/arch-arm64  -Dcrypt_EXPORTS -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC    -c ",
-					"src" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/src/main/cpp/crypt.cpp",
-					"workingDirectory" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a"
-				}
-			],
-			"output" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/build/intermediates/cmake/release/obj/arm64-v8a/libcrypt.so",
-			"toolchain" : "14772423701147923013"
-		},
 		"native-lib-Release-arm64-v8a" : 
 		{
 			"abi" : "arm64-v8a",
 			"artifactName" : "native-lib",
-			"buildCommand" : "/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a --target native-lib",
+			"buildCommand" : "/home/anatoliy/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a --target native-lib",
 			"buildType" : "release",
 			"files" : 
 			[
 				
 				{
-					"flags" : "  -target aarch64-none-linux-android -gcc-toolchain /home/alek/Android/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 --sysroot=/home/alek/Android/Sdk/ndk-bundle/platforms/android-21/arch-arm64  -Dnative_lib_EXPORTS -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC    -c ",
-					"src" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/src/main/cpp/native-lib.cpp",
-					"workingDirectory" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a"
+					"flags" : "  -target aarch64-none-linux-android -gcc-toolchain /home/anatoliy/Android/Sdk/ndk-bundle/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64 --sysroot=/home/anatoliy/Android/Sdk/ndk-bundle/platforms/android-21/arch-arm64  -Dnative_lib_EXPORTS -isystem /home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/include -isystem /home/anatoliy/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC    -c ",
+					"src" : "/home/anatoliy/MobileWinterSchool/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/home/anatoliy/MobileWinterSchool/app/.externalNativeBuild/cmake/release/arm64-v8a"
 				}
 			],
-			"output" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so",
-			"toolchain" : "14772423701147923013"
+			"output" : "/home/anatoliy/MobileWinterSchool/app/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so",
+			"toolchain" : "13487221298621734440"
 		}
 	},
 	"toolchains" : 
 	{
-		"14772423701147923013" : 
+		"13487221298621734440" : 
 		{
-			"cCompilerExecutable" : "/home/alek/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
-			"cppCompilerExecutable" : "/home/alek/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+			"cCompilerExecutable" : "/home/anatoliy/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+			"cppCompilerExecutable" : "/home/anatoliy/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
 		}
 	}
 }
