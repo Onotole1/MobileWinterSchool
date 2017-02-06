@@ -2,6 +2,7 @@ package com.winterschool.mobilewinterschool;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,17 +24,30 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText mPasswordEditText;
     private Context context = this;
     private String token;
+    private String mLogin;
+    private String mPassword;
+    private  final static String APP_PREFERENCES = "MobileWinterSchool";
+    private  final static String LOGIN_PREFERENCES = "login";
+    private  final static String PASSWORD_PREFERENCES = "password";
+    private SharedPreferences preferences;// = getPreferences(Context.MODE_PRIVATE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         bindViews();
+        loadPreferences();
         setClickListeners();
 
-    // Example of a call to a native method
+        // Example of a call to a native method
     /*TextView tv = (TextView) findViewById(R.id.sample_text);
     tv.setText(stringFromJNI());*/
+    }
+
+    private void loadPreferences(){
+        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        preferences.getString(LOGIN_PREFERENCES, "");
+        preferences.getString(PASSWORD_PREFERENCES, "");
     }
 
     /**
@@ -47,10 +61,10 @@ public class LoginActivity extends AppCompatActivity  {
         System.loadLibrary("native-lib");
     }
 
-	public static void main(String[] args) {
-		//new LoginActivity();
-		System.out.println(stringFromJNI());
-	}
+    public static void main(String[] args) {
+        //new LoginActivity();
+        System.out.println(stringFromJNI());
+    }
 
     private void bindViews() {
         mLoginButton = (Button)findViewById(R.id.activity_login_button);
@@ -67,8 +81,9 @@ public class LoginActivity extends AppCompatActivity  {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Server.getInstance().authRequest(mLoginEditText.getText().toString(),
-                                mPasswordEditText.getText().toString(), loginHandler);
+                        mLogin = mLoginEditText.getText().toString();
+                        mPassword = mPasswordEditText.getText().toString();
+                        Server.getInstance().authRequest(mLogin, mPassword, loginHandler);
                     }
                 }).start();
             }
@@ -110,13 +125,22 @@ public class LoginActivity extends AppCompatActivity  {
         }
     };
 
-	public void createToast(final String toastMessage) {
-		runOnUiThread(new Runnable() {
-			public void run() {
-				int duration = Toast.LENGTH_SHORT;
-				Toast toast = Toast.makeText(context, toastMessage, duration);
-				toast.show();
-			}
-		});
-	}
+    @Override
+    protected void onPause() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(LOGIN_PREFERENCES, mLogin);
+        editor.putString(PASSWORD_PREFERENCES, mPassword);
+        editor.apply();
+        super.onPause();
+    }
+
+    public void createToast(final String toastMessage) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, toastMessage, duration);
+                toast.show();
+            }
+        });
+    }
 }

@@ -1,5 +1,7 @@
 package com.winterschool.mobilewinterschool.controller;
 
+import android.os.Handler;
+
 import com.winterschool.mobilewinterschool.model.TrainingData;
 
 /**
@@ -16,11 +18,11 @@ public class Core {
 		mTrainingData = trainingData;
 	}
 
-	public void takePhoto() {
-		new Thread(mTakePhotoThread).start();
+	public void stopTraining() {
+
 	}
 
-	public void startTraining() {
-		new WriteService(mTrainingData);
+	public void startTraining(Handler pulseHandler) {
+		new WriteService(mTrainingData, pulseHandler);
 	}
 }

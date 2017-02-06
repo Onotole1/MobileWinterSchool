@@ -8,6 +8,7 @@ import java.util.SimpleTimeZone;
 import android.os.Handler;
 
 import com.winterschool.mobilewinterschool.model.TrainingData;
+import com.winterschool.mobilewinterschool.model.server.Server;
 
 /**
  * Date: 02.02.17
@@ -18,9 +19,11 @@ import com.winterschool.mobilewinterschool.model.TrainingData;
 public class WriteService {
 	private TrainingData mTrainingData;
 	private Handler mHandler;
+	private Handler mPulseHandler;
 	private int mDelay = 1000;
 
-	public WriteService(TrainingData trainingData) {
+	public WriteService(TrainingData trainingData, Handler pulseHandler) {
+		mPulseHandler = pulseHandler;
 		mTrainingData = trainingData;
 		mHandler = new Handler();
 		mHandler.postDelayed(sendToServerTask, mDelay);
@@ -34,6 +37,8 @@ public class WriteService {
 			try {
 				System.out.println(format.format(new Date()));
 				//Тут вызывается сервер. Возможно, пустое поле int mTrainingData.mPulse
+				Server.getInstance().pulseRequest(mTrainingData.getPulse(), mTrainingData.getSessionId(),
+						mTrainingData.getToken(), format.format(new Date()), mPulseHandler);
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}

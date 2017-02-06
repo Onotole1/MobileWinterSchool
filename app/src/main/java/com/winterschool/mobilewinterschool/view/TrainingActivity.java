@@ -1,17 +1,21 @@
 package com.winterschool.mobilewinterschool.view;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.winterschool.mobilewinterschool.R;
 import com.winterschool.mobilewinterschool.controller.ConnectTask;
 import com.winterschool.mobilewinterschool.controller.Core;
 import com.winterschool.mobilewinterschool.model.TrainingData;
+import com.winterschool.mobilewinterschool.model.server.Server;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +29,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 public class TrainingActivity extends AppCompatActivity {
 	private Core mCore;
@@ -32,6 +38,7 @@ public class TrainingActivity extends AppCompatActivity {
 	private ConnectTask mConnectTask;
 	private Thread connectThread;
 	private BluetoothDevice mDevice;
+	private Context context = this;
 
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -50,22 +57,34 @@ public class TrainingActivity extends AppCompatActivity {
 		connectToDevice();
 
 		mCore = new Core(mTrainingData);
-		//mCore.takePhoto();
-		mCore.startTraining();
+		Button button = (Button) findViewById(R.id.stop_training_button);
+		button.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v) {
+				Server.getInstance().stopSignalRequest(mTrainingData.getSessionId(), mTrainingData.getToken(), stopSignalHandler);
+				//stopTraining();
+			}
+		});
+
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		//super.onActivityResult(requestCode, resultCode, data);
-		mCore.startTraining();
 
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 			galleryAddPic();
 			setPic();
-
+			//CRYPT
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
+					format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+					Server.getInstance().photoRequest("imagePath", format.format(new Date()), mTrainingData.getToken(), photoHandler);
+				}
+			}).start();
 		}
 	}
-
 
 	String mCurrentPhotoPath;
 
@@ -147,7 +166,6 @@ public class TrainingActivity extends AppCompatActivity {
 		mImageView.setImageBitmap(bitmap);
 	}
 
-
 	private String getToken() {
 		Bundle extras = getIntent().getExtras();
 		return extras.getString(Intent.EXTRA_TEXT);
@@ -173,4 +191,58 @@ public class TrainingActivity extends AppCompatActivity {
 			return false;
 		}
 	});
+
+	Handler photoHandler = new Handler() {
+		public void handleMessage(final Message message) {
+			if(message.arg1 == Server.ACK_PHOTO) {
+				mTrainingData.setSessionId((int) message.obj);
+				mCore.startTraining(pulseHandler);
+			}
+			else {
+				if (message.arg1 == Server.ERR_CONNECTION)
+					createToast("Нет связи с сервером");
+				else if (message.arg1 == Server.ERR_PHOTO_PATH)
+					createToast("Ошибка при обработке фотографии");
+				else if (message.arg1 == Server.ERR_PHOTO)
+					createToast("Ошибка при отправке фотографии");
+				//stopTraining
+			}
+		}
+	};
+
+	Handler pulseHandler = new Handler() {
+		public void handleMessage(final Message message) {
+			if(message.arg1 != Server.ACK_PULSE) {
+				if (message.arg1 == Server.ERR_CONNECTION)
+					createToast("Нет связи с сервером");
+				else if (message.arg1 == Server.ERR_PULSE)
+					createToast("Ошибка при отправке пульса");
+				//stopTraining
+			}
+		}
+	};
+
+	Handler stopSignalHandler = new Handler() {
+		public void handleMessage(final Message message) {
+			if(message.arg1 != Server.ACK_STOP) {
+				if (message.arg1 == Server.ERR_CONNECTION)
+					createToast("Нет связи с сервером");
+				else if (message.arg1 == Server.ERR_INVALID_SESSION)
+					createToast("Сессия пуста или отсутствует на сервере");
+				else if (message.arg1 == Server.ERR_END_SESSION)
+					createToast("Сессия уже завершена");
+				//stopTraining
+			}
+		}
+	};
+
+	public void createToast(final String toastMessage) {
+		runOnUiThread(new Runnable() {
+			public void run() {
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, toastMessage, duration);
+				toast.show();
+			}
+		});
+	}
 }
