@@ -32,13 +32,14 @@ public class Server {
 
     public static final int ACK_PHOTO = 0;
     public static final int ERR_PHOTO = 1;
+    public static final int ERR_PHOTO_PATH = 3;
 
     public static final int ACK_PULSE = 0;
     public static final int ERR_PULSE = 1;
 
-    private static final int ACK_STOP = 0;
-    private static final int ERR_INVALID_SESSION = 1;
-    private static final int ERR_END_SESSION = 3;
+    public static final int ACK_STOP = 0;
+    public static final int ERR_INVALID_SESSION = 1;
+    public static final int ERR_END_SESSION = 3;
 
     private static Server mServer;
     private Retrofit retrofit;
@@ -89,16 +90,21 @@ public class Server {
     }
 
     public void photoRequest(String imagePath, String timestamp, String token, Handler handler) {
-       PhotoRequest photoRequest = new PhotoRequest(toBase64String(imagePath), timestamp);
+        String cryptPhoto = toBase64String(imagePath);
         Message message = new Message();
+        if (cryptPhoto == null) {
+            message.arg1 = ERR_PHOTO_PATH;
+            handler.handleMessage(message);
+            return;
+        }
+        PhotoRequest photoRequest = new PhotoRequest(cryptPhoto, timestamp);
+
         try {
             Response response = retrofit.create(ServerAPI.class).postPhoto("Bearer " + token, photoRequest).execute();
             if (response.code() != 200)
                 message.arg1 = ERR_PHOTO;
-            else {
+            else
                 message.arg1 = ACK_PHOTO;
-                message.obj = (Integer) response.body();
-            }
         } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }
@@ -110,10 +116,8 @@ public class Server {
             Response response = retrofit.create(ServerAPI.class).postPulse("Bearer " + token, pulseRequest).execute();
             if (response.code() != 200)
                 message.arg1 = ERR_PULSE;
-            else {
+            else
                 message.arg1 = ACK_PULSE;
-                message.obj = (Integer) response.body();
-            }
         } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }
@@ -128,10 +132,8 @@ public class Server {
             else
                 if (response.code() == 409)
                     message.arg1 = ERR_END_SESSION;
-                else {
+                else
                     message.arg1 = ACK_STOP;
-                    message.obj = (Integer) response.body();
-                }
         } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }
@@ -145,7 +147,7 @@ public class Server {
             fileInputStream.read(bytes);
             fileInputStream.close();
         }
-        catch(IOException e) {}
+        catch(IOException e) {return null;}
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 }
