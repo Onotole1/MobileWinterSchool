@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.winterschool.mobilewinterschool.controller.LoginTask;
+import com.winterschool.mobilewinterschool.model.server.Server;
 import com.winterschool.mobilewinterschool.view.SettingsActivity;
 
 public class LoginActivity extends AppCompatActivity  {
@@ -23,8 +23,6 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText mPasswordEditText;
     private Context context = this;
     private String token;
-
-    private LoginTask mLoginTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +64,13 @@ public class LoginActivity extends AppCompatActivity  {
         View.OnClickListener onClickListenerLogin = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLoginTask = new LoginTask(mLoginEditText.getText().toString()
-                        , mPasswordEditText.getText().toString(), loginCallback);
-                Thread thread = new Thread(mLoginTask);
-                thread.start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Server.getInstance().authRequest(mLoginEditText.getText().toString(),
+                                mPasswordEditText.getText().toString(), loginHandler);
+                    }
+                }).start();
             }
         };
         View.OnClickListener onClickListenerLoginDelete = new View.OnClickListener() {
@@ -89,25 +90,23 @@ public class LoginActivity extends AppCompatActivity  {
         mPasswordDeleteButton.setOnClickListener(onClickListenerPasswordDelete);
     }
 
-    Handler.Callback loginCallback = new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message message) {
-	        token = (String) message.obj;
-	        if (token == null)
-	            createToast("Нет связи с сервером");
-            else if (message.arg1 == -1) {
+    Handler loginHandler = new Handler() {
+        public void handleMessage(Message message) {
+            token = (String) message.obj;
+            if (message.arg1 == Server.ERR_CONNECTION)
+                createToast("Нет связи с сервером");
+            else if (message.arg1 == Server.ERR_LOGIN) {
                 createToast("Неправильный логин / пароль");
-            } else if (message.arg1 == 1){
+            } else if (message.arg1 == Server.ACK_LOGIN){
                 runOnUiThread(new Runnable() {
-	                @Override
-	                public void run() {
-		                Intent intent = new Intent(context, SettingsActivity.class);
-		                intent.putExtra("token", token);
-		                context.startActivity(intent);
-	                }
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(context, SettingsActivity.class);
+                        intent.putExtra("token", token);
+                        context.startActivity(intent);
+                    }
                 });
             }
-            return false;
         }
     };
 
