@@ -1,9 +1,9 @@
-set(CMAKE_HOST_SYSTEM "Linux-4.9.0-15-generic")
-set(CMAKE_HOST_SYSTEM_NAME "Linux")
-set(CMAKE_HOST_SYSTEM_VERSION "4.9.0-15-generic")
-set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
+set(CMAKE_HOST_SYSTEM "Windows-10.0.10586")
+set(CMAKE_HOST_SYSTEM_NAME "Windows")
+set(CMAKE_HOST_SYSTEM_VERSION "10.0.10586")
+set(CMAKE_HOST_SYSTEM_PROCESSOR "AMD64")
 
-include("/home/anatoliy/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake")
+include("C:/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake")
 
 set(CMAKE_SYSTEM "Android-21")
 set(CMAKE_SYSTEM_NAME "Android")
