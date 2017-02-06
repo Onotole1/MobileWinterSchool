@@ -1,12 +1,15 @@
 package com.winterschool.mobilewinterschool.view;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.winterschool.mobilewinterschool.R;
-import com.winterschool.mobilewinterschool.controller.ConnectTack;
+import com.winterschool.mobilewinterschool.controller.ConnectTask;
 import com.winterschool.mobilewinterschool.controller.Core;
 import com.winterschool.mobilewinterschool.model.TrainingData;
 
@@ -17,7 +20,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +28,10 @@ import java.util.Date;
 
 public class TrainingActivity extends AppCompatActivity {
 	private Core mCore;
-	private TrainingData mTrainingData;
-	private ConnectTack mCconnectTack;
+	public TrainingData mTrainingData;
+	private ConnectTask mConnectTask;
+	private Thread connectThread;
+	private BluetoothDevice mDevice;
 
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -42,6 +46,9 @@ public class TrainingActivity extends AppCompatActivity {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+
+		connectToDevice();
+
 		mCore = new Core(mTrainingData);
 		//mCore.takePhoto();
 		mCore.startTraining();
@@ -146,12 +153,24 @@ public class TrainingActivity extends AppCompatActivity {
 		return extras.getString(Intent.EXTRA_TEXT);
 	}
 
-	private void connectionError(){
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				Toast.makeText(getBaseContext(), getString(R.string.connection_error), Toast.LENGTH_SHORT);
-			}
-		});
+	public void connectToDevice(){
+		Intent intent = getIntent();
+		mDevice = intent.getParcelableExtra("device");
+		mConnectTask = new ConnectTask(mDevice, mTrainingData, this.getApplicationContext(), mConnectErrorHandler);
+		connectThread = new Thread(mConnectTask);
+		connectThread.start();
 	}
+
+	private Handler mConnectErrorHandler = new Handler(new Handler.Callback() {
+		@Override
+		public boolean handleMessage(final Message msg) {
+			runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					Toast.makeText(getBaseContext(), (String) msg.obj, Toast.LENGTH_SHORT).show();
+				}
+			});
+			return false;
+		}
+	});
 }

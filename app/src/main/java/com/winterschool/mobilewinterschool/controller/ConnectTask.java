@@ -6,8 +6,12 @@ import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
+import com.winterschool.mobilewinterschool.model.TrainingData;
 import com.winterschool.mobilewinterschool.view.TrainingActivity;
 
 import java.util.List;
@@ -17,27 +21,31 @@ import java.util.UUID;
  * Created by vlad- on 05.02.2017.
  */
 
-public class ConnectTack implements Runnable {
+public class ConnectTask implements Runnable {
 
     private BluetoothDevice mDevice;
     private BluetoothGatt mGatt;
     private BluetoothGattCharacteristic mCharacteristic;
     private BluetoothGattDescriptor mDescriptor;
-    private TrainingActivity mTrainingActivity;
+    private TrainingData mTrainingData;
+    private Context mActivityContext;
+    private Handler mConnectErrorHandler;
 
     private static final String HRUUID = "0000180d-0000-1000-8000-00805f9b34fb";
 
-    public ConnectTack(TrainingActivity trainingActivity, BluetoothDevice device) {
-        this.mTrainingActivity = trainingActivity;
+    public ConnectTask(BluetoothDevice device, TrainingData trainingData, Context activityContext, Handler connectErrorHandler) {
+        this.mTrainingData = trainingData;
         this.mDevice = device;
+        this.mActivityContext = activityContext;
+        this.mConnectErrorHandler = connectErrorHandler;
     }
 
     @Override
     public void run() {
-        mGatt = mDevice.connectGatt(mTrainingActivity, false, mBluetoothGattCallback);
+        mGatt = mDevice.connectGatt(mActivityContext, false, mBluetoothGattCallback);
     }
 
-    private void disconnect(){
+    public void disconnect(){
         mGatt.setCharacteristicNotification(mCharacteristic, false);
         mDescriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
         mGatt.writeDescriptor(mDescriptor);
@@ -55,16 +63,23 @@ public class ConnectTack implements Runnable {
             int heartRate = data[1] & 0xFF;
 
             Log.i("GattService", "Data receive from device: " + heartRate);
+            mTrainingData.setPulse(heartRate);
         }
 
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            String msg;
             if (newState == BluetoothGatt.STATE_DISCONNECTED) {
-                Log.i("GattService", "Device disconnected");
+                msg = "Device disconnected";
+                Log.i("GattService", msg);
             } else {
+                msg = "Connected and discover service";
                 gatt.discoverServices();
-                Log.i("GattService", "Connected and discover service");
+                Log.i("GattService", msg);
             }
+            Message message = new Message();
+            message.obj = msg;
+            mConnectErrorHandler.handleMessage(message);
         }
 
         @Override
