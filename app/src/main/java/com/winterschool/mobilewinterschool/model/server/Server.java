@@ -98,7 +98,6 @@ public class Server {
             return;
         }
         PhotoRequest photoRequest = new PhotoRequest(cryptPhoto, timestamp);
-
         try {
             Response response = retrofit.create(ServerAPI.class).postPhoto("Bearer " + token, photoRequest).execute();
             if (response.code() != 200)
