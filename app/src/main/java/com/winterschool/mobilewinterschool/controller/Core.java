@@ -11,7 +11,6 @@ import com.winterschool.mobilewinterschool.model.TrainingData;
  * @author anatoliy
  */
 public class Core {
-	private TakePhotoThread mTakePhotoThread;
 	private TrainingData mTrainingData;
 
 	public Core(TrainingData trainingData) {

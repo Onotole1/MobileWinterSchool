@@ -39,6 +39,7 @@ public class TrainingActivity extends AppCompatActivity {
 	private Thread connectThread;
 	private BluetoothDevice mDevice;
 	private Context context = this;
+	private Thread mTrainingThread;
 
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -61,28 +62,32 @@ public class TrainingActivity extends AppCompatActivity {
 		button.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
 				Server.getInstance().stopSignalRequest(mTrainingData.getSessionId(), mTrainingData.getToken(), stopSignalHandler);
-				//stopTraining();
+				stopTraining();
 			}
 		});
 
 	}
 
+	private void stopTraining(){
+		mTrainingThread.interrupt();
+		finish();
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		//super.onActivityResult(requestCode, resultCode, data);
-
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 			galleryAddPic();
 			setPic();
 			//CRYPT
-			new Thread(new Runnable() {
+			mTrainingThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
 					format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 					Server.getInstance().photoRequest("imagePath", format.format(new Date()), mTrainingData.getToken(), photoHandler);
 				}
-			}).start();
+			});
+			mTrainingThread.start();
 		}
 	}
 
@@ -205,7 +210,7 @@ public class TrainingActivity extends AppCompatActivity {
 					createToast("Ошибка при обработке фотографии");
 				else if (message.arg1 == Server.ERR_PHOTO)
 					createToast("Ошибка при отправке фотографии");
-				//stopTraining
+				//stopTraining();
 			}
 		}
 	};
@@ -217,7 +222,7 @@ public class TrainingActivity extends AppCompatActivity {
 					createToast("Нет связи с сервером");
 				else if (message.arg1 == Server.ERR_PULSE)
 					createToast("Ошибка при отправке пульса");
-				//stopTraining
+				//stopTraining();
 			}
 		}
 	};
@@ -231,7 +236,7 @@ public class TrainingActivity extends AppCompatActivity {
 					createToast("Сессия пуста или отсутствует на сервере");
 				else if (message.arg1 == Server.ERR_END_SESSION)
 					createToast("Сессия уже завершена");
-				//stopTraining
+				//stopTraining();
 			}
 		}
 	};

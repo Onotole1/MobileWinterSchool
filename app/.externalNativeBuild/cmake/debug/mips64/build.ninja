@@ -29,55 +29,55 @@ ninja_required_version = 1.5
 
 include rules.ninja
 
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64 && /home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake -H/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app -B/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64 && /home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+build edit_cache: phony CMakeFiles/edit_cache.util
 # =============================================================================
 # Object build statements for SHARED_LIBRARY target native-lib
 
 build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__native-lib ../../../../src/main/cpp/native-lib.cpp
   DEFINES = -Dnative_lib_EXPORTS
-  DEP_FILE = CMakeFiles\native-lib.dir\src\main\cpp\native-lib.cpp.o.d
+  DEP_FILE = CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o.d
   FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC
-  INCLUDES = -isystem C:/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem C:/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/include -isystem C:/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward
-  IN_ABS = C:\CompTechNsk\MobileWinterSchool\app\src\main\cpp\native-lib.cpp
-  OBJECT_DIR = CMakeFiles\native-lib.dir
-  OBJECT_FILE_DIR = CMakeFiles\native-lib.dir\src\main\cpp
+  INCLUDES = -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward
+  IN_ABS = /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/src/main/cpp/native-lib.cpp
+  OBJECT_DIR = CMakeFiles/native-lib.dir
+  OBJECT_FILE_DIR = CMakeFiles/native-lib.dir/src/main/cpp
 
 # =============================================================================
 # Link build statements for SHARED_LIBRARY target native-lib
 
 
 #############################################
-# Link the shared library ..\..\..\..\build\intermediates\cmake\debug\obj\mips64\libnative-lib.so
+# Link the shared library ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
 
-build ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | C$:/Android/sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so
+build ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | /home/alek/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info
   LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
-  LINK_LIBRARIES = -llog -lm "C:/Android/sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_static.a"
-  OBJECT_DIR = CMakeFiles\native-lib.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
+  LINK_LIBRARIES = /home/alek/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64/usr/lib64/liblog.so -lm "/home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/libgnustl_static.a"
+  OBJECT_DIR = CMakeFiles/native-lib.dir
+  POST_BUILD = :
+  PRE_LINK = :
   SONAME = libnative-lib.so
   SONAME_FLAG = -Wl,-soname,
-  TARGET_FILE = ..\..\..\..\build\intermediates\cmake\debug\obj\mips64\libnative-lib.so
+  TARGET_FILE = ../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so
   TARGET_PDB = native-lib.so.dbg
-
-#############################################
-# Utility command for edit_cache
-
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\CompTechNsk\MobileWinterSchool\app\.externalNativeBuild\cmake\debug\mips64 && C:\Android\sdk\cmake\3.6.3155560\bin\cmake.exe -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
-  restat = 1
-build edit_cache: phony CMakeFiles/edit_cache.util
-
-#############################################
-# Utility command for rebuild_cache
-
-build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\CompTechNsk\MobileWinterSchool\app\.externalNativeBuild\cmake\debug\mips64 && C:\Android\sdk\cmake\3.6.3155560\bin\cmake.exe -HC:\CompTechNsk\MobileWinterSchool\app -BC:\CompTechNsk\MobileWinterSchool\app\.externalNativeBuild\cmake\debug\mips64"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
@@ -104,13 +104,13 @@ default all
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../../../../CMakeLists.txt C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompiler.cmake.in C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompilerABI.c C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompiler.cmake.in C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompilerABI.cpp C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCommonLanguageInclude.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCXXCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompileFeatures.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompilerABI.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineSystem.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeFindBinUtils.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeGenericSystem.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeLanguageInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystem.cmake.in C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInitialize.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCXXCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCompilerCommon.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-C.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-CXX.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/GNU.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Internal/FeatureTesting.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Android.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Linux.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/UnixPaths.cmake C$:/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake CMakeCache.txt CMakeFiles/3.6.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../../../../CMakeLists.txt /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompiler.cmake.in /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompilerABI.c /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompiler.cmake.in /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompilerABI.cpp /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCommonLanguageInclude.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCXXCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompileFeatures.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompilerABI.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineSystem.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeFindBinUtils.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeGenericSystem.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeLanguageInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeParseImplicitLinkInfo.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystem.cmake.in /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInitialize.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCXXCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCompilerCommon.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-C.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-CXX.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/GNU.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Internal/FeatureTesting.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Android.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Linux.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/UnixPaths.cmake /home/alek/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake CMakeCache.txt CMakeFiles/3.6.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeSystem.cmake
   pool = console
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../../../../CMakeLists.txt C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompiler.cmake.in C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompilerABI.c C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompiler.cmake.in C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompilerABI.cpp C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCommonLanguageInclude.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCXXCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompileFeatures.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompilerABI.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineSystem.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeFindBinUtils.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeGenericSystem.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeLanguageInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeParseImplicitLinkInfo.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystem.cmake.in C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInformation.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInitialize.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCXXCompiler.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCompilerCommon.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-C.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-CXX.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/GNU.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Internal/FeatureTesting.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Android.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Linux.cmake C$:/Android/sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/UnixPaths.cmake C$:/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake CMakeCache.txt CMakeFiles/3.6.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeSystem.cmake: phony
+build ../../../../CMakeLists.txt /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompiler.cmake.in /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCCompilerABI.c /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompiler.cmake.in /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXCompilerABI.cpp /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCXXInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeCommonLanguageInclude.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCXXCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompileFeatures.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineCompilerABI.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeDetermineSystem.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeFindBinUtils.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeGenericSystem.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeLanguageInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeParseImplicitLinkInfo.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystem.cmake.in /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInformation.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeSystemSpecificInitialize.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCXXCompiler.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/CMakeTestCompilerCommon.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-C.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang-CXX.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/Clang.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Compiler/GNU.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Internal/FeatureTesting.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Android.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/Linux.cmake /home/alek/Android/Sdk/cmake/3.6.3155560/share/cmake-3.6/Modules/Platform/UnixPaths.cmake /home/alek/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake CMakeCache.txt CMakeFiles/3.6.0-rc2/CMakeCCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/3.6.0-rc2/CMakeSystem.cmake: phony
 
 #############################################
 # Clean all the built files.
