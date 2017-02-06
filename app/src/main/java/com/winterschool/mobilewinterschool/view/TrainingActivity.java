@@ -3,14 +3,17 @@ package com.winterschool.mobilewinterschool.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.winterschool.mobilewinterschool.R;
+import com.winterschool.mobilewinterschool.controller.ConnectTack;
 import com.winterschool.mobilewinterschool.controller.Core;
 import com.winterschool.mobilewinterschool.model.TrainingData;
 
 public class TrainingActivity extends AppCompatActivity {
 	private Core mCore;
 	private TrainingData mTrainingData;
+	private ConnectTack mCconnectTack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +39,14 @@ public class TrainingActivity extends AppCompatActivity {
 	private String getToken() {
 		Bundle extras = getIntent().getExtras();
 		return extras.getString(Intent.EXTRA_TEXT);
+	}
+
+	private void connectionError(){
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				Toast.makeText(getBaseContext(), getString(R.string.connection_error), Toast.LENGTH_SHORT);
+			}
+		});
 	}
 }
