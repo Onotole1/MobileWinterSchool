@@ -140,10 +140,9 @@ public class Server {
 
     public String toBase64String(String imagePath){
         File file = new File(imagePath);
-        FileInputStream fileInputStream = null;
         byte[] bytes = new byte[(int) file.length()];
         try {
-            fileInputStream = new FileInputStream(file);
+            FileInputStream fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytes);
             fileInputStream.close();
         }
