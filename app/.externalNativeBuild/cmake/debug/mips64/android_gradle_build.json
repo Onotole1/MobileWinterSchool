@@ -1,12 +1,9 @@
 
 {
-	"buildFiles" : 
-	[
-		"/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/CMakeLists.txt"
-	],
+	"buildFiles" : [ "/home/alek/MobileWinterSchool/app/CMakeLists.txt" ],
 	"cleanCommands" : 
 	[
-		"/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64 --target clean"
+		"/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64 --target clean"
 	],
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
@@ -15,18 +12,18 @@
 		{
 			"abi" : "mips64",
 			"artifactName" : "native-lib",
-			"buildCommand" : "/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64 --target native-lib",
+			"buildCommand" : "/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64 --target native-lib",
 			"buildType" : "debug",
 			"files" : 
 			[
 				
 				{
 					"flags" : "  -target mips64el-none-linux-android -gcc-toolchain /home/alek/Android/Sdk/ndk-bundle/toolchains/mips64el-linux-android-4.9/prebuilt/linux-x86_64 --sysroot=/home/alek/Android/Sdk/ndk-bundle/platforms/android-21/arch-mips64  -Dnative_lib_EXPORTS -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips64/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
-					"src" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/src/main/cpp/native-lib.cpp",
-					"workingDirectory" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64"
+					"src" : "/home/alek/MobileWinterSchool/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/mips64"
 				}
 			],
-			"output" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
+			"output" : "/home/alek/MobileWinterSchool/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
 			"toolchain" : "14772423701147923013"
 		}
 	},

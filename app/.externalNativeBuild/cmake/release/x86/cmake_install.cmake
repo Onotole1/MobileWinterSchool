@@ -1,4 +1,4 @@
-# Install script for directory: /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app
+# Install script for directory: /home/alek/MobileWinterSchool/app
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -93,7 +93,6 @@ public class Server {
     }
 
     public void photoRequest(String imagePath, String timestamp, String token, Handler handler) {
-        Log.i("sendPhoto", imagePath);
         String cryptPhoto = toBase64String(imagePath);
         Message message = new Message();
         if (cryptPhoto == null) {

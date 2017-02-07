@@ -1,12 +1,9 @@
 
 {
-	"buildFiles" : 
-	[
-		"/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/CMakeLists.txt"
-	],
+	"buildFiles" : [ "/home/alek/MobileWinterSchool/app/CMakeLists.txt" ],
 	"cleanCommands" : 
 	[
-		"/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86 --target clean"
+		"/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86 --target clean"
 	],
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
@@ -15,18 +12,18 @@
 		{
 			"abi" : "x86",
 			"artifactName" : "native-lib",
-			"buildCommand" : "/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86 --target native-lib",
+			"buildCommand" : "/home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake --build /home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86 --target native-lib",
 			"buildType" : "release",
 			"files" : 
 			[
 				
 				{
 					"flags" : "  -target i686-none-linux-android -gcc-toolchain /home/alek/Android/Sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/linux-x86_64 --sysroot=/home/alek/Android/Sdk/ndk-bundle/platforms/android-21/arch-x86  -Dnative_lib_EXPORTS -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/include -isystem /home/alek/Android/Sdk/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -frtti -fexceptions -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC    -c ",
-					"src" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/src/main/cpp/native-lib.cpp",
-					"workingDirectory" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86"
+					"src" : "/home/alek/MobileWinterSchool/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "/home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/release/x86"
 				}
 			],
-			"output" : "/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/build/intermediates/cmake/release/obj/x86/libnative-lib.so",
+			"output" : "/home/alek/MobileWinterSchool/app/build/intermediates/cmake/release/obj/x86/libnative-lib.so",
 			"toolchain" : "14772423701147923013"
 		}
 	},

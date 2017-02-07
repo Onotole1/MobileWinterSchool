@@ -1,11 +1,11 @@
 Executable : /home/alek/Android/Sdk/cmake/3.6.3155560/bin/cmake
 arguments : 
--H/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app
--B/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/armeabi
+-H/home/alek/MobileWinterSchool/app
+-B/home/alek/MobileWinterSchool/app/.externalNativeBuild/cmake/debug/armeabi
 -GAndroid Gradle - Ninja
 -DANDROID_ABI=armeabi
 -DANDROID_NDK=/home/alek/Android/Sdk/ndk-bundle
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/alek/AndroidStudioProjects/MyApplication/MobileWinterSchool/app/build/intermediates/cmake/debug/obj/armeabi
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/alek/MobileWinterSchool/app/build/intermediates/cmake/debug/obj/armeabi
 -DCMAKE_BUILD_TYPE=Debug
 -DCMAKE_MAKE_PROGRAM=/home/alek/Android/Sdk/cmake/3.6.3155560/bin/ninja
 -DCMAKE_TOOLCHAIN_FILE=/home/alek/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake
