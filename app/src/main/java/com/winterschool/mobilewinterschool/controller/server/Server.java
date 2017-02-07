@@ -77,18 +77,18 @@ public class Server {
 
     public void authRequest(String userName, String password, Handler handler){
         Message message = new Message();
-        try {
-            Response response = retrofit.create(ServerAPI.class).postLoginPassword("password", userName, password).execute();
-            if (response.code() == 409)
-                message.arg1 = ERR_LOGIN;
-            else if (response.code() == 200) {
+    //    try {
+            //Response response = retrofit.create(ServerAPI.class).postLoginPassword("password", userName, password).execute();
+            //if (response.code() == 409)
+              //  message.arg1 = ERR_LOGIN;
+            //else if (response.code() == 200) {
                 message.arg1 = ACK_LOGIN;
-                TokenResponse tokenResponse = (TokenResponse) response.body();
-                message.obj = tokenResponse.getAccessToken();
-            }
-            else
-                message.arg1 = ERR_CONNECTION;
-        } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
+              //  TokenResponse tokenResponse = (TokenResponse) response.body();
+                //message.obj = tokenResponse.getAccessToken();
+            //}
+            //else
+              //  message.arg1 = ERR_CONNECTION;
+        //} catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }
 
