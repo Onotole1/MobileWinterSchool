@@ -141,9 +141,6 @@ public class TrainingActivity extends AppCompatActivity {
 
 	private File createImageFile() throws IOException {
 		// Create an image file name
-		//SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
-		//format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-		//mTimeStamp = format.format(new Date());
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
 		File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
