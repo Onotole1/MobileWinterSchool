@@ -55,7 +55,6 @@ public class TrainingActivity extends AppCompatActivity {
 	private static boolean anim_flag = true;
 
     private String mCurrentPhotoPath;
-    private String mCryptPhotoPath;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -127,13 +126,14 @@ public class TrainingActivity extends AppCompatActivity {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					cryptPhoto(mCurrentPhotoPath, mCryptPhotoPath);
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
 					format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-					Server.getInstance().photoRequest(mCryptPhotoPath, format.format(new Date()), mTrainingData.getToken(), photoHandler);
+					Server.getInstance().photoRequest(mCurrentPhotoPath, format.format(new Date()),
+							mTrainingData.getToken(), photoHandler);
 				}
 			}).start();
 		}
+		else finish();
 	}
 
 	private File createImageFile() throws IOException {
@@ -149,9 +149,6 @@ public class TrainingActivity extends AppCompatActivity {
 
 		// Save a file: path for use with ACTION_VIEW intents
 		mCurrentPhotoPath = image.getAbsolutePath();
-		mCryptPhotoPath = storageDir.getAbsolutePath() + "/" + imageFileName + "_crypt.txt";
-        Log.i("photoPath", mCurrentPhotoPath);
-        Log.i("cryptPath", mCryptPhotoPath);
 		return image;
 	}
 
@@ -282,25 +279,25 @@ public class TrainingActivity extends AppCompatActivity {
 
 	Handler pulseHandler = new Handler() {
 		public void handleMessage(final Message message) {
-			if(message.arg1 != Server.ACK_PULSE) {
-				if (message.arg1 == Server.ERR_CONNECTION)
-					createToast("Нет связи с сервером");
-				else if (message.arg1 == Server.ERR_PULSE)
-					createToast("Ошибка при отправке пульса");
+			//if(message.arg1 != Server.ACK_PULSE) {
+			//	if (message.arg1 == Server.ERR_CONNECTION)
+			//		createToast("Нет связи с сервером");
+			//	else if (message.arg1 == Server.ERR_PULSE)
+			//		createToast("Ошибка при отправке пульса");
 				//stopTraining();
-			}
+			//}
 		}
 	};
 
 	Handler stopSignalHandler = new Handler() {
 		public void handleMessage(final Message message) {
 			if(message.arg1 != Server.ACK_STOP) {
-				if (message.arg1 == Server.ERR_CONNECTION)
-					createToast("Нет связи с сервером");
-				else if (message.arg1 == Server.ERR_INVALID_SESSION)
-					createToast("Сессия пуста или отсутствует на сервере");
-				else if (message.arg1 == Server.ERR_END_SESSION)
-					createToast("Сессия уже завершена");
+				//if (message.arg1 == Server.ERR_CONNECTION)
+				//	createToast("Нет связи с сервером");
+				//else if (message.arg1 == Server.ERR_INVALID_SESSION)
+				//	createToast("Сессия пуста или отсутствует на сервере");
+				//else if (message.arg1 == Server.ERR_END_SESSION)
+				//	createToast("Сессия уже завершена");
 				//stopTraining();
 			}
 		}
