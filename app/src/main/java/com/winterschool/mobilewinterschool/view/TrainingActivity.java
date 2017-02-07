@@ -8,7 +8,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.winterschool.mobilewinterschool.R;
@@ -31,6 +34,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.SimpleTimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TrainingActivity extends AppCompatActivity {
 	private WriteService  mWriteService;
@@ -40,6 +45,13 @@ public class TrainingActivity extends AppCompatActivity {
 	private BluetoothDevice mDevice;
 	private Context context = this;
 	private Thread mTrainingThread;
+
+	private Button stopTarainingButton;
+	private TextView heartRateInfo;
+	private ImageView imageView;
+	private Animation animation1;
+	private Animation animation2;
+	private static boolean anim_flag = true;
 
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -55,7 +67,7 @@ public class TrainingActivity extends AppCompatActivity {
 			e.printStackTrace();
 		}
 
-		connectToDevice();
+		init_setClickListener();
 
 		Button button = (Button) findViewById(R.id.stop_training_button);
 		button.setOnClickListener(new View.OnClickListener(){
@@ -67,7 +79,26 @@ public class TrainingActivity extends AppCompatActivity {
 
 	}
 
+	private void init_setClickListener(){
+		stopTarainingButton = (Button) findViewById(R.id.stop_training_button);
+		heartRateInfo = (TextView)findViewById(R.id.heart_rate);
+		imageView = (ImageView) findViewById(R.id.heart);
+		animation1 = AnimationUtils.loadAnimation(this, R.anim.alpha1);
+		animation2 = AnimationUtils.loadAnimation(this, R.anim.alpha2);
+
+		View.OnClickListener onClickListenerStopTraining = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				stopTraining();
+			}
+		};
+
+		stopTarainingButton.setOnClickListener(onClickListenerStopTraining);
+	}
+
 	private void stopTraining(){
+		mConnectTask.disconnect();
+		connectThread.interrupt();
 		mTrainingThread.interrupt();
 		finish();
 	}
@@ -75,8 +106,10 @@ public class TrainingActivity extends AppCompatActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+			connectToDevice();
 			galleryAddPic();
 			setPic();
+			heartRateTimer();
 			//CRYPT
 			mTrainingThread = new Thread(new Runnable() {
 				@Override
@@ -181,6 +214,30 @@ public class TrainingActivity extends AppCompatActivity {
 		mConnectTask = new ConnectTask(mDevice, mTrainingData, this.getApplicationContext(), mConnectErrorHandler);
 		connectThread = new Thread(mConnectTask);
 		connectThread.start();
+	}
+
+	private void heartRateTimer(){
+		Timer timer = new Timer();
+		long delay = 0;
+		long period = 1000;
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						heartRateInfo.setText(mTrainingData.getPulse() + " ");
+						if(anim_flag){
+							imageView.startAnimation(animation1);
+							anim_flag = false;
+						}else{
+							imageView.startAnimation(animation2);
+							anim_flag = true;
+						}
+					}
+				});
+			}
+		}, delay, period);
 	}
 
 	private Handler mConnectErrorHandler = new Handler(new Handler.Callback() {

@@ -19,12 +19,11 @@ import com.winterschool.mobilewinterschool.view.SettingsActivity;
 
 public class LoginActivity extends AppCompatActivity  {
     private Button mLoginButton;
-    private ImageButton mLoginDeleteButtton;
+    private ImageButton mLoginDeleteButton;
     private ImageButton mPasswordDeleteButton;
     private EditText mLoginEditText;
     private EditText mPasswordEditText;
     private Context context = this;
-    private String token;
     private String mLogin;
     private String mPassword;
     private  final static String APP_PREFERENCES = "MobileWinterSchool";
@@ -63,7 +62,7 @@ public class LoginActivity extends AppCompatActivity  {
 
     private void bindViews() {
         mLoginButton = (Button)findViewById(R.id.activity_login_button);
-        mLoginDeleteButtton = (ImageButton)findViewById(R.id.activivty_login_image_button_delete_login);
+        mLoginDeleteButton = (ImageButton)findViewById(R.id.activivty_login_image_button_delete_login);
         mPasswordDeleteButton = (ImageButton)findViewById(R.id.activivty_login_image_button_delete_pass);
         mLoginEditText = (EditText)findViewById(R.id.activity_login_edittext_login);
         mPasswordEditText = (EditText)findViewById(R.id.activity_login_edittext_password);
@@ -98,7 +97,7 @@ public class LoginActivity extends AppCompatActivity  {
             }
         };
         mLoginButton.setOnClickListener(onClickListenerLogin);
-        mLoginDeleteButtton.setOnClickListener(onClickListenerLoginDelete);
+        mLoginDeleteButton.setOnClickListener(onClickListenerLoginDelete);
         mPasswordDeleteButton.setOnClickListener(onClickListenerPasswordDelete);
     }
 
