@@ -47,9 +47,9 @@ public class TrainingActivity extends AppCompatActivity {
 	private Context context = this;
 	private ImageView mImageView;
 
-	private Button stopTarainingButton;
+	private Button stopTrainingButton;
 	private TextView heartRateInfo;
-	private ImageView imageView;
+	private ImageView heartImageView;
 	private Animation animation1;
 	private Animation animation2;
 	private static boolean anim_flag = true;
@@ -84,9 +84,9 @@ public class TrainingActivity extends AppCompatActivity {
 	}
 
 	private void init_setClickListener(){
-		stopTarainingButton = (Button) findViewById(R.id.stop_training_button);
+		stopTrainingButton = (Button) findViewById(R.id.stop_training_button);
 		heartRateInfo = (TextView)findViewById(R.id.heart_rate);
-		imageView = (ImageView) findViewById(R.id.heart);
+		heartImageView = (ImageView) findViewById(R.id.heart);
 		animation1 = AnimationUtils.loadAnimation(this, R.anim.alpha1);
 		animation2 = AnimationUtils.loadAnimation(this, R.anim.alpha2);
 
@@ -97,7 +97,7 @@ public class TrainingActivity extends AppCompatActivity {
 			}
 		};
 
-		stopTarainingButton.setOnClickListener(onClickListenerStopTraining);
+		stopTrainingButton.setOnClickListener(onClickListenerStopTraining);
 	}
 
 	private void stopTraining(){
@@ -238,10 +238,10 @@ public class TrainingActivity extends AppCompatActivity {
 					public void run() {
 						heartRateInfo.setText(mTrainingData.getPulse() + " ");
 						if(anim_flag){
-							imageView.startAnimation(animation1);
+							heartImageView.startAnimation(animation1);
 							anim_flag = false;
 						}else{
-							imageView.startAnimation(animation2);
+							heartImageView.startAnimation(animation2);
 							anim_flag = true;
 						}
 					}
@@ -249,19 +249,6 @@ public class TrainingActivity extends AppCompatActivity {
 			}
 		}, delay, period);
 	}
-
-	private Handler mConnectErrorHandler = new Handler(new Handler.Callback() {
-		@Override
-		public boolean handleMessage(final Message msg) {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(getBaseContext(), (String) msg.obj, Toast.LENGTH_SHORT).show();
-				}
-			});
-			return false;
-		}
-	});
 
 	Handler photoHandler = new Handler() {
 		public void handleMessage(final Message message) {
@@ -280,6 +267,15 @@ public class TrainingActivity extends AppCompatActivity {
 					createToast("Ошибка при отправке фотографии");
 				//stopTraining();
 			}*/
+		}
+	};
+
+	Handler mConnectErrorHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.arg1 == ConnectTask.CONNECT_ERROR) {
+				createToast("Потеряна связь с устройством");
+			}
 		}
 	};
 

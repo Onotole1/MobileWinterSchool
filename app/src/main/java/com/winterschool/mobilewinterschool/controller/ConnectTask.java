@@ -31,6 +31,7 @@ public class ConnectTask implements Runnable {
     private Context mActivityContext;
     private Handler mConnectErrorHandler;
 
+    public static final int CONNECT_ERROR = 1;
     private static final String HRUUID = "0000180d-0000-1000-8000-00805f9b34fb";
 
     public ConnectTask(BluetoothDevice device, TrainingData trainingData, Context activityContext, Handler connectErrorHandler) {
@@ -43,15 +44,6 @@ public class ConnectTask implements Runnable {
     @Override
     public void run() {
         mGatt = mDevice.connectGatt(mActivityContext, false, mBluetoothGattCallback);
-    }
-
-    public void disconnect(){
-        mGatt.setCharacteristicNotification(mCharacteristic, false);
-        mDescriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
-        mGatt.writeDescriptor(mDescriptor);
-        mGatt.disconnect();
-        mGatt.close();
-        Log.i("GattService", "Device disconnected finally");
     }
 
     private BluetoothGattCallback mBluetoothGattCallback = new BluetoothGattCallback() {
@@ -68,18 +60,15 @@ public class ConnectTask implements Runnable {
 
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            String msg;
-            if (newState == BluetoothGatt.STATE_DISCONNECTED) {
-                msg = "Device disconnected";
-                Log.i("GattService", msg);
-            } else {
-                msg = "Connected and discover service";
-                gatt.discoverServices();
-                Log.i("GattService", msg);
-            }
             Message message = new Message();
-            message.obj = msg;
-            mConnectErrorHandler.handleMessage(message);
+            if (newState == BluetoothGatt.STATE_DISCONNECTED) {
+                Log.i("GattService", "Device disconnected");
+                message.arg1 = CONNECT_ERROR;
+                mConnectErrorHandler.handleMessage(message);
+            } else {
+                gatt.discoverServices();
+                Log.i("GattService", "Connected and discover service");
+            }
         }
 
         @Override

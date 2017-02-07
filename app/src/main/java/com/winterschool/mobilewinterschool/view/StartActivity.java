@@ -22,16 +22,19 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         mHandler = new Handler();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                stopActivity();
-            }
-        }, STOP_DELAY);
+        mHandler.postDelayed(runnableStop, STOP_DELAY);
     }
+
+    private Runnable runnableStop = new Runnable() {
+        @Override
+        public void run() {
+            stopActivity();
+        }
+    };
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        mHandler.removeCallbacks(runnableStop);
         stopActivity();
         return super.onTouchEvent(event);
     }
