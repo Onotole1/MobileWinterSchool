@@ -21,25 +21,33 @@ public class WriteService implements  Runnable{
 	private Handler mHandler;
 	private Handler mPulseHandler;
 	private int mDelay = 1000;
+	private boolean mSendData;
 
 	public WriteService(TrainingData trainingData, Handler pulseHandler) {
 		mPulseHandler = pulseHandler;
 		mTrainingData = trainingData;
+		mSendData = true;
+	}
+
+	public void stopSendData(){
+		mSendData = false;
 	}
 
 	private Runnable sendToServerTask = new Runnable() {
 		@Override
 		public void run() {
 			try {
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
-						format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-						Server.getInstance().pulseRequest(mTrainingData.getPulse(), mTrainingData.getSessionId(),
-								mTrainingData.getToken(), format.format(new Date()), mPulseHandler);
-					}
-				}).start();
+				if (mSendData == true) {
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
+							format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+							Server.getInstance().pulseRequest(mTrainingData.getPulse(), mTrainingData.getSessionId(),
+									mTrainingData.getToken(), format.format(new Date()), mPulseHandler);
+						}
+					}).start();
+				}
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}

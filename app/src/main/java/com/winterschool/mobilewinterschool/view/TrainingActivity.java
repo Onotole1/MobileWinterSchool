@@ -45,7 +45,6 @@ public class TrainingActivity extends AppCompatActivity {
 	private Thread connectThread;
 	private BluetoothDevice mDevice;
 	private Context context = this;
-	private Thread mTrainingThread;
 	private ImageView mImageView;
 
 	private Button stopTarainingButton;
@@ -102,9 +101,8 @@ public class TrainingActivity extends AppCompatActivity {
 	}
 
 	private void stopTraining(){
-		mConnectTask.disconnect();
 		connectThread.interrupt();
-		mTrainingThread.interrupt();
+		mWriteService.stopSendData();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -126,7 +124,7 @@ public class TrainingActivity extends AppCompatActivity {
 			setPic();
 			heartRateTimer();
 			//CRYPT
-			mTrainingThread = new Thread(new Runnable() {
+			new Thread(new Runnable() {
 				@Override
 				public void run() {
 					cryptPhoto(mCurrentPhotoPath, mCryptPhotoPath);
@@ -134,8 +132,7 @@ public class TrainingActivity extends AppCompatActivity {
 					format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 					Server.getInstance().photoRequest(mCryptPhotoPath, format.format(new Date()), mTrainingData.getToken(), photoHandler);
 				}
-			});
-			mTrainingThread.start();
+			}).start();
 		}
 	}
 
