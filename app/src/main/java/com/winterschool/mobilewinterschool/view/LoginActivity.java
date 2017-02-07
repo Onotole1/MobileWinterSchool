@@ -1,4 +1,4 @@
-package com.winterschool.mobilewinterschool;
+package com.winterschool.mobilewinterschool.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.winterschool.mobilewinterschool.model.server.Server;
+import com.winterschool.mobilewinterschool.R;
+import com.winterschool.mobilewinterschool.controller.server.Server;
 import com.winterschool.mobilewinterschool.view.SettingsActivity;
 
 public class LoginActivity extends AppCompatActivity  {
@@ -29,14 +30,14 @@ public class LoginActivity extends AppCompatActivity  {
     private  final static String APP_PREFERENCES = "MobileWinterSchool";
     private  final static String LOGIN_PREFERENCES = "login";
     private  final static String PASSWORD_PREFERENCES = "password";
-    private SharedPreferences preferences;// = getPreferences(Context.MODE_PRIVATE);
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         bindViews();
-        loadPreferences();
         setClickListeners();
 
         // Example of a call to a native method
@@ -44,17 +45,11 @@ public class LoginActivity extends AppCompatActivity  {
     tv.setText(stringFromJNI());*/
     }
 
-    private void loadPreferences(){
-        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        preferences.getString(LOGIN_PREFERENCES, "");
-        preferences.getString(PASSWORD_PREFERENCES, "");
-    }
-
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public static native String stringFromJNI();
+    //public static native String stringFromJNI();
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -63,7 +58,7 @@ public class LoginActivity extends AppCompatActivity  {
 
     public static void main(String[] args) {
         //new LoginActivity();
-        System.out.println(stringFromJNI());
+        //   System.out.println(stringFromJNI());
     }
 
     private void bindViews() {
@@ -72,6 +67,8 @@ public class LoginActivity extends AppCompatActivity  {
         mPasswordDeleteButton = (ImageButton)findViewById(R.id.activivty_login_image_button_delete_pass);
         mLoginEditText = (EditText)findViewById(R.id.activity_login_edittext_login);
         mPasswordEditText = (EditText)findViewById(R.id.activity_login_edittext_password);
+        mLoginEditText.setText( preferences.getString(LOGIN_PREFERENCES, ""));
+        mPasswordEditText.setText( preferences.getString(LOGIN_PREFERENCES, ""));
     }
 
     private void setClickListeners() {
@@ -107,23 +104,23 @@ public class LoginActivity extends AppCompatActivity  {
 
     Handler loginHandler = new Handler() {
         public void handleMessage(Message message) {
-            token = (String) message.obj;
+            /*token = (String) message.obj;
             if (message.arg1 == Server.ERR_CONNECTION)
                 createToast("Нет связи с сервером");
             else if (message.arg1 == Server.ERR_LOGIN) {
                 createToast("Неправильный логин / пароль");
-            } else if (message.arg1 == Server.ACK_LOGIN){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(context, SettingsActivity.class);
-                        intent.putExtra("token", token);
-                        context.startActivity(intent);
-                    }
-                });
-            }
+            } else if (message.arg1 == Server.ACK_LOGIN){*/
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(context, SettingsActivity.class);
+                    intent.putExtra("token", "abcdef123");
+                    context.startActivity(intent);
+                }
+            });
         }
     };
+    // };
 
     @Override
     protected void onPause() {

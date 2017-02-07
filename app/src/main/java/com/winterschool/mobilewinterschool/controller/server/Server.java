@@ -1,8 +1,9 @@
-package com.winterschool.mobilewinterschool.model.server;
+package com.winterschool.mobilewinterschool.controller.server;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,7 +46,7 @@ public class Server {
     private Retrofit retrofit;
 
     private Server() {
-        retrofit = new Retrofit.Builder().baseUrl("http://svet.akadempark.com:12202").addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder().baseUrl("http://10.9.86.63:9999").addConverterFactory(GsonConverterFactory.create()).build();
     }
 
     public static Server getInstance(){
@@ -77,21 +78,22 @@ public class Server {
     public void authRequest(String userName, String password, Handler handler){
         Message message = new Message();
         try {
-             Response response = retrofit.create(ServerAPI.class).postLoginPassword("password", userName, password).execute();
-             if (response.code() == 409)
-                 message.arg1 = ERR_LOGIN;
-             else if (response.code() == 200) {
-                 message.arg1 = ACK_LOGIN;
-                 TokenResponse tokenResponse = (TokenResponse) response.body();
-                 message.obj = tokenResponse.getAccessToken();
-             }
-             else
-                 message.arg1 = ERR_CONNECTION;
+            Response response = retrofit.create(ServerAPI.class).postLoginPassword("password", userName, password).execute();
+            if (response.code() == 409)
+                message.arg1 = ERR_LOGIN;
+            else if (response.code() == 200) {
+                message.arg1 = ACK_LOGIN;
+                TokenResponse tokenResponse = (TokenResponse) response.body();
+                message.obj = tokenResponse.getAccessToken();
+            }
+            else
+                message.arg1 = ERR_CONNECTION;
         } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }
 
     public void photoRequest(String imagePath, String timestamp, String token, Handler handler) {
+        Log.i("sendPhoto", imagePath);
         String cryptPhoto = toBase64String(imagePath);
         Message message = new Message();
         if (cryptPhoto == null) {
@@ -111,6 +113,7 @@ public class Server {
     }
 
     public void pulseRequest(int pulse, int sessionId, String timestamp, String token, Handler handler) {
+        Log.i("sendPulse", String.valueOf(pulse));
         PulseRequest pulseRequest = new PulseRequest(pulse, sessionId, timestamp);
         Message message = new Message();
         try {
@@ -131,10 +134,10 @@ public class Server {
             if (response.code() == 400)
                 message.arg1 = ERR_INVALID_SESSION;
             else
-                if (response.code() == 409)
-                    message.arg1 = ERR_END_SESSION;
-                else
-                    message.arg1 = ACK_STOP;
+            if (response.code() == 409)
+                message.arg1 = ERR_END_SESSION;
+            else
+                message.arg1 = ACK_STOP;
         } catch (IOException e) {message.arg1 = ERR_CONNECTION;}
         handler.handleMessage(message);
     }

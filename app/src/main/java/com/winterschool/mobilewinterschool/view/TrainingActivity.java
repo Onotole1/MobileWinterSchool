@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.winterschool.mobilewinterschool.R;
 import com.winterschool.mobilewinterschool.controller.ConnectTask;
-import com.winterschool.mobilewinterschool.controller.Core;
+import com.winterschool.mobilewinterschool.controller.WriteService;
 import com.winterschool.mobilewinterschool.model.TrainingData;
-import com.winterschool.mobilewinterschool.model.server.Server;
+import com.winterschool.mobilewinterschool.controller.server.Server;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,7 +33,7 @@ import java.util.Locale;
 import java.util.SimpleTimeZone;
 
 public class TrainingActivity extends AppCompatActivity {
-	private Core mCore;
+	private WriteService  mWriteService;
 	public TrainingData mTrainingData;
 	private ConnectTask mConnectTask;
 	private Thread connectThread;
@@ -57,7 +57,6 @@ public class TrainingActivity extends AppCompatActivity {
 
 		connectToDevice();
 
-		mCore = new Core(mTrainingData);
 		Button button = (Button) findViewById(R.id.stop_training_button);
 		button.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
@@ -199,9 +198,11 @@ public class TrainingActivity extends AppCompatActivity {
 
 	Handler photoHandler = new Handler() {
 		public void handleMessage(final Message message) {
-			if(message.arg1 == Server.ACK_PHOTO) {
+			mTrainingData.setSessionId(1234567);
+			mWriteService = new WriteService(mTrainingData, pulseHandler);
+			runOnUiThread(mWriteService);
+			/*if(message.arg1 == Server.ACK_PHOTO) {
 				mTrainingData.setSessionId((int) message.obj);
-				mCore.startTraining(pulseHandler);
 			}
 			else {
 				if (message.arg1 == Server.ERR_CONNECTION)
@@ -211,7 +212,7 @@ public class TrainingActivity extends AppCompatActivity {
 				else if (message.arg1 == Server.ERR_PHOTO)
 					createToast("Ошибка при отправке фотографии");
 				//stopTraining();
-			}
+			}*/
 		}
 	};
 

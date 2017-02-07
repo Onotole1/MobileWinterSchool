@@ -1,4 +1,4 @@
-package com.winterschool.mobilewinterschool.model.server;
+package com.winterschool.mobilewinterschool.controller.server;
 
 import com.google.gson.annotations.SerializedName;
 
