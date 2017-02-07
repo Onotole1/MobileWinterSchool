@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -45,6 +46,7 @@ public class TrainingActivity extends AppCompatActivity {
 	private BluetoothDevice mDevice;
 	private Context context = this;
 	private Thread mTrainingThread;
+	private ImageView mImageView;
 
 	private Button stopTarainingButton;
 	private TextView heartRateInfo;
@@ -53,7 +55,11 @@ public class TrainingActivity extends AppCompatActivity {
 	private Animation animation2;
 	private static boolean anim_flag = true;
 
-	static final int REQUEST_IMAGE_CAPTURE = 1;
+    private String mCurrentPhotoPath;
+    private String mCryptPhotoPath;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,6 @@ public class TrainingActivity extends AppCompatActivity {
 		Button button = (Button) findViewById(R.id.stop_training_button);
 		button.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
-				Server.getInstance().stopSignalRequest(mTrainingData.getSessionId(), mTrainingData.getToken(), stopSignalHandler);
 				stopTraining();
 			}
 		});
@@ -100,8 +105,18 @@ public class TrainingActivity extends AppCompatActivity {
 		mConnectTask.disconnect();
 		connectThread.interrupt();
 		mTrainingThread.interrupt();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Server.getInstance().stopSignalRequest(mTrainingData.getSessionId(), mTrainingData.getToken(), stopSignalHandler);
+            }
+        }).start();
 		finish();
 	}
+
+    private void cryptPhoto(String photoPath, String cryptPhotoPath){
+
+    }
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,19 +129,21 @@ public class TrainingActivity extends AppCompatActivity {
 			mTrainingThread = new Thread(new Runnable() {
 				@Override
 				public void run() {
+					cryptPhoto(mCurrentPhotoPath, mCryptPhotoPath);
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
 					format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-					Server.getInstance().photoRequest("imagePath", format.format(new Date()), mTrainingData.getToken(), photoHandler);
+					Server.getInstance().photoRequest(mCryptPhotoPath, format.format(new Date()), mTrainingData.getToken(), photoHandler);
 				}
 			});
 			mTrainingThread.start();
 		}
 	}
 
-	String mCurrentPhotoPath;
-
 	private File createImageFile() throws IOException {
 		// Create an image file name
+		//SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH); //DD/MM/YY HH:MM:SS
+		//format.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+		//mTimeStamp = format.format(new Date());
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
 		File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -138,10 +155,11 @@ public class TrainingActivity extends AppCompatActivity {
 
 		// Save a file: path for use with ACTION_VIEW intents
 		mCurrentPhotoPath = image.getAbsolutePath();
+		mCryptPhotoPath = storageDir.getAbsolutePath() + "/" + imageFileName + "_crypt.txt";
+        Log.i("photoPath", mCurrentPhotoPath);
+        Log.i("cryptPath", mCryptPhotoPath);
 		return image;
 	}
-
-	static final int REQUEST_TAKE_PHOTO = 1;
 
 	private void dispatchTakePictureIntent() {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -175,8 +193,6 @@ public class TrainingActivity extends AppCompatActivity {
 		mediaScanIntent.setData(contentUri);
 		this.sendBroadcast(mediaScanIntent);
 	}
-
-	ImageView mImageView;
 
 	private void setPic() {
 		// Get the dimensions of the View
