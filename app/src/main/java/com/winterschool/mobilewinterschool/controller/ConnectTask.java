@@ -46,15 +46,6 @@ public class ConnectTask implements Runnable {
         mGatt = mDevice.connectGatt(mActivityContext, false, mBluetoothGattCallback);
     }
 
-    public void disconnect(){
-        mGatt.setCharacteristicNotification(mCharacteristic, false);
-        mDescriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
-        mGatt.writeDescriptor(mDescriptor);
-        mGatt.disconnect();
-        mGatt.close();
-        Log.i("GattService", "Device disconnected finally");
-    }
-
     private BluetoothGattCallback mBluetoothGattCallback = new BluetoothGattCallback() {
 
         @Override

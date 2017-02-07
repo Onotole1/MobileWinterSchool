@@ -48,7 +48,7 @@ public class TrainingActivity extends AppCompatActivity {
 	private Thread mTrainingThread;
 	private ImageView mImageView;
 
-	private Button stopTarainingButton;
+	private Button stopTrainingButton;
 	private TextView heartRateInfo;
 	private ImageView heartImageView;
 	private Animation animation1;
@@ -85,7 +85,7 @@ public class TrainingActivity extends AppCompatActivity {
 	}
 
 	private void init_setClickListener(){
-		stopTarainingButton = (Button) findViewById(R.id.stop_training_button);
+		stopTrainingButton = (Button) findViewById(R.id.stop_training_button);
 		heartRateInfo = (TextView)findViewById(R.id.heart_rate);
 		heartImageView = (ImageView) findViewById(R.id.heart);
 		animation1 = AnimationUtils.loadAnimation(this, R.anim.alpha1);
@@ -98,11 +98,10 @@ public class TrainingActivity extends AppCompatActivity {
 			}
 		};
 
-		stopTarainingButton.setOnClickListener(onClickListenerStopTraining);
+		stopTrainingButton.setOnClickListener(onClickListenerStopTraining);
 	}
 
 	private void stopTraining(){
-		mConnectTask.disconnect();
 		connectThread.interrupt();
 		mTrainingThread.interrupt();
         new Thread(new Runnable() {
