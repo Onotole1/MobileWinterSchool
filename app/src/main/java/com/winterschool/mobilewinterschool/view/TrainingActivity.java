@@ -275,6 +275,7 @@ public class TrainingActivity extends AppCompatActivity {
 		public void handleMessage(Message msg) {
 			if(msg.arg1 == ConnectTask.CONNECT_ERROR) {
 				createToast("Потеряна связь с устройством");
+				stopTraining();
 			}
 		}
 	};
