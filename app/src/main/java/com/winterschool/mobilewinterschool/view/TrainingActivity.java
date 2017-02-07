@@ -122,7 +122,6 @@ public class TrainingActivity extends AppCompatActivity {
 			galleryAddPic();
 			setPic();
 			heartRateTimer();
-			//CRYPT
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
